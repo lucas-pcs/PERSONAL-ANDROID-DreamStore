@@ -18,10 +18,12 @@ class ProductListActivity : AppCompatActivity() {
         setContentView(productListBinding.root)
 
         var productDAO = ProductDAO()
-        productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_foreground))
-        productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_foreground))
-        productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_foreground))
 
+        // testing
+        for (i in 0 until 10){
+            productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_background))
+        }
+        
         var activityProductListRecyclerView = productListBinding.activityProductListRecyclerView
         activityProductListRecyclerView.adapter = ProductListAdapter(this, productDAO.getProductList())
         activityProductListRecyclerView.layoutManager = LinearLayoutManager(this)
