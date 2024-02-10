@@ -3,7 +3,6 @@ package br.com.lucaspcs.dreamstore.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import br.com.lucaspcs.dreamstore.R
 import br.com.lucaspcs.dreamstore.dao.ProductDAO
@@ -22,7 +21,20 @@ class ProductFormActivity : AppCompatActivity() {
 
         activityProductFormBinding.activityProductFormSave.setOnClickListener {
             val productName = activityProductFormBinding.activityProductFormName.text.toString()
-            val productValue = BigDecimal(activityProductFormBinding.activityProductFormValue.text.toString())
+            val productValueString = activityProductFormBinding.activityProductFormValue.text.toString()
+
+            if(productName.isNullOrBlank()){
+                Toast.makeText(this, "Please, enter a valid name", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if(productValueString.isNullOrBlank()){
+                Toast.makeText(this, "Please, enter a valid value number", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            val productValue = BigDecimal(productValueString)
+
             productDAO.addProduct(Product(productName, productValue, R.drawable.ic_launcher_background))
 
             Log.d(TAG, "onCreate: productList: ${productDAO.getProductList()}")
