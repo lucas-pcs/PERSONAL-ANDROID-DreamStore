@@ -9,6 +9,7 @@ import br.com.lucaspcs.dreamstore.dao.ProductDAO
 import br.com.lucaspcs.dreamstore.databinding.ActivityProductListBinding
 import br.com.lucaspcs.dreamstore.model.Product
 import br.com.lucaspcs.dreamstore.ui.recyclerview.ProductListAdapter
+import java.math.BigDecimal
 
 class ProductListActivity : AppCompatActivity() {
     private val productListBinding by lazy {
@@ -23,7 +24,7 @@ class ProductListActivity : AppCompatActivity() {
 
         // testing
         for (i in 0 until 3){
-            productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_background))
+            productDAO.addProduct(Product("teste", BigDecimal("19.99"), R.drawable.ic_launcher_background))
         }
         activityProductListRecyclerView.adapter = ProductListAdapter(this, productDAO.getProductList().toMutableList())
         activityProductListRecyclerView.layoutManager = LinearLayoutManager(this)

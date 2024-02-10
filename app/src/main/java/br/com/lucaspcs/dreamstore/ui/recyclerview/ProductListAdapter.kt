@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import br.com.lucaspcs.dreamstore.databinding.ItemProductBinding
 import br.com.lucaspcs.dreamstore.model.Product
+import java.math.BigDecimal
 
 class ProductListAdapter(private val context: Context, productList: MutableList<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
     private val productListDataSet = productList
@@ -18,7 +19,7 @@ class ProductListAdapter(private val context: Context, productList: MutableList<
 
         fun bind(product: Product){
             name.text = product.name
-            value.text = product.value
+            value.text = product.value.toPlainString()
             image.setImageResource(product.image)
         }
     }

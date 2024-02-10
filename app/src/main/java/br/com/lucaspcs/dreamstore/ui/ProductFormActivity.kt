@@ -9,6 +9,7 @@ import br.com.lucaspcs.dreamstore.R
 import br.com.lucaspcs.dreamstore.dao.ProductDAO
 import br.com.lucaspcs.dreamstore.databinding.ActivityProductFormBinding
 import br.com.lucaspcs.dreamstore.model.Product
+import java.math.BigDecimal
 
 class ProductFormActivity : AppCompatActivity() {
     private val activityProductFormBinding by lazy { ActivityProductFormBinding.inflate(layoutInflater) }
@@ -21,7 +22,7 @@ class ProductFormActivity : AppCompatActivity() {
 
         activityProductFormBinding.activityProductFormSave.setOnClickListener {
             val productName = activityProductFormBinding.activityProductFormName.text.toString()
-            val productValue = activityProductFormBinding.activityProductFormValue.text.toString()
+            val productValue = BigDecimal(activityProductFormBinding.activityProductFormValue.text.toString())
             productDAO.addProduct(Product(productName, productValue, R.drawable.ic_launcher_background))
 
             Log.d(TAG, "onCreate: productList: ${productDAO.getProductList()}")
