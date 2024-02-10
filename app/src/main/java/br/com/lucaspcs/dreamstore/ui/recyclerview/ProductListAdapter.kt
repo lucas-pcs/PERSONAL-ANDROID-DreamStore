@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import br.com.lucaspcs.dreamstore.databinding.ItemProductBinding
 import br.com.lucaspcs.dreamstore.model.Product
 
-class ProductListAdapter(private val context: Context, productList: List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
-    private val productListDataSet = productList.toMutableList()
+class ProductListAdapter(private val context: Context, productList: MutableList<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+    private val productListDataSet = productList
+
     class ProductViewHolder(itemProductBinding: ItemProductBinding) : ViewHolder(itemProductBinding.root){
         private val name = itemProductBinding.itemProductName
         private val value = itemProductBinding.itemProductValue
@@ -35,4 +36,9 @@ class ProductListAdapter(private val context: Context, productList: List<Product
         return productListDataSet.size
     }
 
+    fun updateDataSet(newProductList: List<Product>){
+        productListDataSet.clear()
+        productListDataSet.addAll(newProductList)
+        notifyDataSetChanged()
+    }
 }

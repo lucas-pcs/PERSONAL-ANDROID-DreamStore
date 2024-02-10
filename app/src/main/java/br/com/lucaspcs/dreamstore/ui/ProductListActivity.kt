@@ -1,5 +1,6 @@
 package br.com.lucaspcs.dreamstore.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,19 +14,29 @@ class ProductListActivity : AppCompatActivity() {
     private val productListBinding by lazy {
         ActivityProductListBinding.inflate(layoutInflater)
     }
+    private val activityProductListRecyclerView by lazy { productListBinding.activityProductListRecyclerView }
+    private val productDAO = ProductDAO()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(productListBinding.root)
 
-        var productDAO = ProductDAO()
-
         // testing
-        for (i in 0 until 10){
+        for (i in 0 until 3){
             productDAO.addProduct(Product("teste", "teste", R.drawable.ic_launcher_background))
         }
-        
-        var activityProductListRecyclerView = productListBinding.activityProductListRecyclerView
-        activityProductListRecyclerView.adapter = ProductListAdapter(this, productDAO.getProductList())
+        activityProductListRecyclerView.adapter = ProductListAdapter(this, productDAO.getProductList().toMutableList())
         activityProductListRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        productListBinding.activityProductListFab.setOnClickListener{
+            val goToProductForm = Intent(this, ProductFormActivity::class.java)
+            startActivity(goToProductForm)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val productListAdapter = activityProductListRecyclerView.adapter as ProductListAdapter
+        productListAdapter.updateDataSet(productDAO.getProductList())
     }
 }
