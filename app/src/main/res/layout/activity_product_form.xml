@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ProductFormActivity">
+
+    <EditText
+        android:id="@+id/activity_product_form_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="Name"/>
+
+    <EditText
+        android:id="@+id/activity_product_form_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="@id/activity_product_form_name"
+        app:layout_constraintEnd_toEndOf="@id/activity_product_form_name"
+        app:layout_constraintTop_toBottomOf="@id/activity_product_form_name"
+        android:hint="Value"/>
+
+    <Button
+        android:id="@+id/activity_product_form_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/activity_product_form_value"
+        app:layout_constraintStart_toStartOf="@id/activity_product_form_name"
+        app:layout_constraintEnd_toEndOf="@id/activity_product_form_name"
+        android:text="Create new product"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
