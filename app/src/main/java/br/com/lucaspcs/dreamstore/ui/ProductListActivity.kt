@@ -15,21 +15,43 @@ class ProductListActivity : AppCompatActivity() {
     private val productListBinding by lazy {
         ActivityProductListBinding.inflate(layoutInflater)
     }
-    private val activityProductListRecyclerView by lazy { productListBinding.activityProductListRecyclerView }
+    private val activityProductListRecyclerView by lazy {
+        productListBinding.activityProductListRecyclerView
+    }
+    private val productListAdapter: ProductListAdapter by lazy {
+        activityProductListRecyclerView.adapter as ProductListAdapter
+    }
     private val productDAO = ProductDAO()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(productListBinding.root)
 
         // testing
-        for (i in 0 until 3){
-            productDAO.addProduct(Product("teste", BigDecimal("19.99"), R.drawable.ic_launcher_background))
-        }
-        activityProductListRecyclerView.adapter = ProductListAdapter(this, productDAO.getProductList().toMutableList())
-        activityProductListRecyclerView.layoutManager = LinearLayoutManager(this)
+        addDummyProductsToProductList()
+        configureRecyclerView()
+        configureFABbutton()
+    }
 
-        productListBinding.activityProductListFab.setOnClickListener{
+    private fun addDummyProductsToProductList() {
+        for (i in 0 until 3) {
+            productDAO.addProduct(
+                Product(
+                    "teste",
+                    BigDecimal("19.99"),
+                    R.drawable.ic_launcher_background
+                )
+            )
+        }
+    }
+
+    private fun configureRecyclerView() {
+        activityProductListRecyclerView.adapter =
+            ProductListAdapter(this, productDAO.getProductList().toMutableList())
+        activityProductListRecyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun configureFABbutton() {
+        productListBinding.activityProductListFab.setOnClickListener {
             val goToProductForm = Intent(this, ProductFormActivity::class.java)
             startActivity(goToProductForm)
         }
@@ -37,7 +59,6 @@ class ProductListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val productListAdapter = activityProductListRecyclerView.adapter as ProductListAdapter
         productListAdapter.updateDataSet(productDAO.getProductList())
     }
 }

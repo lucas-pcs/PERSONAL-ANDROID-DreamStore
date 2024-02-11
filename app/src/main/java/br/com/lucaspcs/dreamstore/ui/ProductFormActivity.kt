@@ -19,25 +19,35 @@ class ProductFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activityProductFormBinding.root)
 
+        configureSaveButton()
+    }
+
+    private fun configureSaveButton() {
         activityProductFormBinding.activityProductFormSave.setOnClickListener {
             val productName = activityProductFormBinding.activityProductFormName.text.toString()
-            val productValueString = activityProductFormBinding.activityProductFormValue.text.toString()
+            val productValueString =
+                activityProductFormBinding.activityProductFormValue.text.toString()
 
-            if(productName.isNullOrBlank()){
+            if (productName.isNullOrBlank()) {
                 Toast.makeText(this, "Please, enter a valid name", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if(productValueString.isNullOrBlank()){
+            if (productValueString.isNullOrBlank()) {
                 Toast.makeText(this, "Please, enter a valid value number", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            
+
             val productValue = BigDecimal(productValueString)
 
-            productDAO.addProduct(Product(productName, productValue, R.drawable.ic_launcher_background))
+            productDAO.addProduct(
+                Product(
+                    productName,
+                    productValue,
+                    R.drawable.ic_launcher_background
+                )
+            )
 
-            Log.d(TAG, "onCreate: productList: ${productDAO.getProductList()}")
             finish()
         }
     }
